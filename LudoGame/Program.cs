@@ -23,7 +23,7 @@ namespace LudoGame
             int newPawnPosition;          
             int die = 0;
             int rounds = 0;
-            int countRoll = 0;
+            int pawnChoosen = 0;
             int arrayFieldsCount = fields.Count();
             int arrayFinalFields = arrayFieldsCount + finalFields.Count();
 
@@ -50,10 +50,10 @@ namespace LudoGame
             arrayPawns[13] = new Pawn("InNest", 2, "Yellow", 0);
             arrayPawns[14] = new Pawn("InNest", 3, "Yellow", 0);
             arrayPawns[15] = new Pawn("InNest", 4, "Yellow", 0);
-
+        
             // List of pawns categories by color
             List<Pawn> bluePawn = arrayPawns.Where(p => p.color == "Blue").ToList();
-            List<Pawn> redPawn = arrayPawns.Where(p => p.color == "Red").ToList();          
+            List<Pawn> redPawn = arrayPawns.Where(p => p.color == "Red").ToList();
             List<Pawn> greenPawn = arrayPawns.Where(p => p.color == "Green").ToList();
             List<Pawn> yellowPawn = arrayPawns.Where(p => p.color == "Yellow").ToList();
 
@@ -101,8 +101,35 @@ namespace LudoGame
                     int checkInGoalPawns = 0;
 
                 // Display of players turn
-                Console.WriteLine("\n{0} player turn", player.colorID);
-                Console.ReadLine();
+                Console.WriteLine("\n{0} player turn", player.colorID);               
+
+
+                    // Choose which pawn to move
+                    Console.WriteLine("Choose which pawn you want to move");
+                    Console.WriteLine("\t1 - Pawn 1");
+                    Console.WriteLine("\t2 - Pawn 2");
+                    Console.WriteLine("\t3 - Pawn 3");
+                    Console.WriteLine("\t4 - Pawn 4");
+                    Console.Write("Your option? ");
+                    pawnChoosen = Convert.ToInt16(Console.ReadLine());
+
+                    switch (pawnChoosen)
+                    {
+                        case 1:
+                            pawnChoosen = 1;
+                            break;
+                        case 2:
+                            pawnChoosen = 2;
+                            break;
+                        case 3:
+                            pawnChoosen = 3;
+                            break;
+                        case 4:
+                            pawnChoosen = 4;
+                            break;
+                        default:
+                            break;
+                    }
 
                     // For each pawn do this.
                     foreach (Pawn pawn in arrayPawns)
@@ -119,7 +146,7 @@ namespace LudoGame
                     }
 
                         // In Nest statement
-                        if (pawn.color == colorid && pawn.status == InNest)
+                        if (pawn.color == colorid && pawn.status == InNest && pawn.number == pawnChoosen)
                         {
 
                                 Console.WriteLine("In nest {1} Pawn {0} with position {2}", pawn.number, pawn.color, pawn.position);
@@ -129,10 +156,12 @@ namespace LudoGame
 
                                 if (roll != "e")
                                 {
-                                
-                                    do
+                                int countRoll = 0;
+                                do
                                     {                                  
                                     countRoll++;
+                                    Console.WriteLine(countRoll);
+                                    Console.ReadLine();
                                     // Random dize Start and display of roll
                                     die = DizeOptions.RollDize();
                                     Console.WriteLine("\n{0} player rolled:", player.colorID);
@@ -161,7 +190,7 @@ namespace LudoGame
                         }
 
                         // On Board statement
-                        else if (pawn.color == colorid && pawn.status == OnBoard && pawn.position <= arrayFieldsCount)
+                        else if (pawn.color == colorid && pawn.status == OnBoard && pawn.position <= arrayFieldsCount && pawn.number == pawnChoosen)
                         {
                             Console.WriteLine("On board {1} Pawn {0} with position {2}", pawn.number, pawn.color, pawn.position);
                             Console.WriteLine("\nPress enter to Roll");
@@ -185,7 +214,7 @@ namespace LudoGame
                         }
 
                         // Last Run statement
-                        else if (pawn.color == colorid && pawn.status == LastRun)
+                        else if (pawn.color == colorid && pawn.status == LastRun && pawn.number == pawnChoosen)
                         {
                             Console.WriteLine("Almost in goal! Pawn {0} {1} with position {2}/45", pawn.number, pawn.color, pawn.position);
                             Console.WriteLine("\nPress enter to Roll");
