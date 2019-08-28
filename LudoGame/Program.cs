@@ -101,7 +101,7 @@ namespace LudoGame
                     int checkInGoalPawns = 0;
 
                 // Display of players turn
-                Console.WriteLine("\n{0} player turn", player.colorID);               
+                Console.WriteLine("\n{0} player turn", player.colorID);
 
 
                     // Choose which pawn to move
@@ -113,23 +113,7 @@ namespace LudoGame
                     Console.Write("Your option? ");
                     pawnChoosen = Convert.ToInt16(Console.ReadLine());
 
-                    switch (pawnChoosen)
-                    {
-                        case 1:
-                            pawnChoosen = 1;
-                            break;
-                        case 2:
-                            pawnChoosen = 2;
-                            break;
-                        case 3:
-                            pawnChoosen = 3;
-                            break;
-                        case 4:
-                            pawnChoosen = 4;
-                            break;
-                        default:
-                            break;
-                    }
+                    pawnChoosen = getPawns.ChoosePawn(pawnChoosen);
 
                     // For each pawn do this.
                     foreach (Pawn pawn in arrayPawns)
@@ -160,8 +144,6 @@ namespace LudoGame
                                 do
                                     {                                  
                                     countRoll++;
-                                    Console.WriteLine(countRoll);
-                                    Console.ReadLine();
                                     // Random dize Start and display of roll
                                     die = DizeOptions.RollDize();
                                     Console.WriteLine("\n{0} player rolled:", player.colorID);
