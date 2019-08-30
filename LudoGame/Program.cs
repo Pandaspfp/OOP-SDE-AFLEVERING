@@ -58,15 +58,13 @@ namespace LudoGame
             List<Pawn> yellowPawn = arrayPawns.Where(p => p.color == "Yellow").ToList();
 
             // Foreach loop of pawn colors
-            bluePawn.ForEach(p => {
-                Console.WriteLine("{0} number and color {1}", p.number, p.color);
-            });
+            //bluePawn.ForEach(p => {
+            //    Console.WriteLine("{0} number and color {1}", p.number, p.color);
+            //});
 
-            redPawn.ForEach(p => {
-                Console.WriteLine("{0} number and color {1}", p.number, p.color);
-            });
-
-
+            //redPawn.ForEach(p => {
+            //    Console.WriteLine("{0} number and color {1}", p.number, p.color);
+            //});
 
             // Calling my Classes      
             Dize DizeOptions = new Dize();           
@@ -113,6 +111,7 @@ namespace LudoGame
                     Console.Write("Your option? ");
                     pawnChoosen = Convert.ToInt16(Console.ReadLine());
 
+                    // Call which pawn method
                     pawnChoosen = getPawns.ChoosePawn(pawnChoosen);
 
                     // For each pawn do this.
@@ -133,7 +132,7 @@ namespace LudoGame
                         if (pawn.color == colorid && pawn.status == InNest && pawn.number == pawnChoosen)
                         {
 
-                                Console.WriteLine("In nest {1} Pawn {0} with position {2}", pawn.number, pawn.color, pawn.position);
+                                Console.WriteLine("\nIn nest {1} Pawn {0} with position {2}", pawn.number, pawn.color, pawn.position);
                                 Console.WriteLine("Roll 6 to move pawn out");
                                 Console.WriteLine("\nPress enter to Roll");
                                 roll = Console.ReadLine();
@@ -213,11 +212,11 @@ namespace LudoGame
                                 newPawnPosition = DizeOptions.AddDizeNumber(pawn.position, die);
                                 pawn.position = newPawnPosition;
 
-                                // Hvis pawn position er større end 45 altså slut position minus rest værdien og gør dette til den nye værdi
+                                // Hvis pawn position er større end 45, altså slut position minus rest værdien gør dette til den nye værdi
                                 if (pawn.position > 45)
                                 {
                                     Console.WriteLine("Your roll didnt match the final position");
-                                    newPawnPosition = DizeOptions.SubtractDizeNumber(pawn.position, die);
+                                    newPawnPosition = DizeOptions.ModulusDizeNumber(pawn.position, die);
                                     pawn.position = newPawnPosition;
                                 }
 
